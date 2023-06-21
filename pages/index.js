@@ -4,6 +4,7 @@ export default function Home() {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
+    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`);
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`);
     const newData = await res.json();
     setData(newData);
