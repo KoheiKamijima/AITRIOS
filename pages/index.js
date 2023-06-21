@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 5000); // 5秒ごとにデータを取得
+    const intervalId = setInterval(fetchData, 10000); // 5秒ごとにデータを取得
 
     return () => {
       clearInterval(intervalId);
