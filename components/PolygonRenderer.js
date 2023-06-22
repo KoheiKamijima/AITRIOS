@@ -6,6 +6,7 @@ const PolygonRenderer = ({ geoJson, scale }) => {
   const canvasWidth = 800; // Canvasの幅を変数として定義しておきます
   const axisMin = -2; // 軸の最小値
   const axisMax = 12; // 軸の最大値
+  const tickInterval = 2; // 軸の目盛りの間隔
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -34,7 +35,7 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     if (geoJson) {
       geoJson.features.forEach((feature) => {
         if (feature.geometry.type === "Polygon") {
-          const coordinates = feature.geometry.coordinates; // geoJSONのポリゴンは最初の配列に座標が入っています
+          const coordinates = feature.geometry.coordinates;
           ctx.beginPath();
           coordinates.forEach((coordinate, index) => {
             const [x, y] = coordinate.map((coord) => coord * scale); // scaleにより座標を調整
@@ -53,6 +54,14 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     }
 
     ctx.restore(); // contextの状態を復元（これにより次回の描画で変換が積み重なるのを防ぐ）
+
+    // ラベルを描画する
+    ctx.fillStyle = "black";
+    ctx.font = "12px Arial";
+    for (let i = axisMin; i <= axisMax; i += tickInterval) {
+      ctx.fillText(i.toString(), i * scale, canvasHeight - 5);
+      ctx.fillText(i.toString(), 5, canvasHeight - i * scale - 15);
+    }
   }, [geoJson, scale]);
 
   return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight}></canvas>;
