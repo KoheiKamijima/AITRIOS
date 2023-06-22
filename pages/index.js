@@ -117,14 +117,13 @@ export default function Home() {
   };
 
   const crow_state = {
-    pos1 : false,
+    pos1 : true,
     pos2 : false,
     pos3 : false,
     pos4 : false,
   }
 
   return (
-<<<<<<< HEAD
     <>    
     <Head>
     <title>カラス！</title>
@@ -139,22 +138,14 @@ export default function Home() {
   </div>
   
     
-  <PolygonRenderer geoJson={geojson} scale={10} />  
+  
   <CrowRender crow_state={crow_state} />    
-
-      {data.map((item, i) => (
-        <div key={i}>
-        </div>
-      ))}
+  <PolygonRenderer geoJson={data.geoJson} scale={50} />
+      <div>
+        //{data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
+      </div>
+      
 
     </>
-=======
-    <div>
-      <PolygonRenderer geoJson={data.geoJson} scale={50} />
-      <div>
-        {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
-      </div>
-    </div>
->>>>>>> main
   );
 }
