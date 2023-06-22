@@ -2,10 +2,15 @@ import { useEffect, useRef } from "react";
 
 const PolygonRenderer = ({ geoJson, scale }) => {
   const canvasRef = useRef(null);
+  const canvasHeight = 600; // Canvasの高さを変数として定義しておきます
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+
+    // y軸の向きを反転し、原点を左下に移動
+    ctx.scale(1, -1);
+    ctx.translate(0, -canvasHeight);
 
     // ポリゴンデータを描画する
     geoJson.features.forEach((feature) => {
@@ -26,7 +31,7 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     });
   }, [geoJson, scale]);
 
-  return <canvas ref={canvasRef} width={800} height={600}></canvas>;
+  return <canvas ref={canvasRef} width={800} height={canvasHeight}></canvas>;
 };
 
 export default PolygonRenderer;
