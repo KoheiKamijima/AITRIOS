@@ -113,12 +113,7 @@ export default function Home() {
     ],
   };
 
-  const crow_state = {
-    pos1: true,
-    pos2: false,
-    pos3: false,
-    pos4: false,
-  };
+ 
 
   return (
     <>
@@ -132,7 +127,7 @@ export default function Home() {
         <p>カラスマップ&nbsp;</p>
       </div>
 
-      <CrowRender crow_state={crow_state} />
+      <CrowRender data_crow={data} />
       <PolygonRenderer data={data} scale={50} />
     </>
   );

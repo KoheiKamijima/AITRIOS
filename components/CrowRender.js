@@ -4,17 +4,22 @@ import useSound from "use-sound";
 import React from "react";
 import styles from "@/styles/Home.module.css";
 
-const CrowRender = ({ crow_state }) => {
+const CrowRender = ({ data_crow}) => {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // デフォルト値を設定
-
+  const crow_state = {
+    pos1: false,
+    pos2: false,
+    pos3: false,
+    pos4: false,
+  };
   const canvasRef = useRef(null);
   const canvasHeight = 6000; // Canvasの高さを変数として定義しておきます
   const [play, { stop, pause }] = useSound("/warning.mp3");
   const [data, setData] = useState([]);
-  const [showImage_1, setShowImage_1] = useState(true);
-  const [showImage_2, setShowImage_2] = useState(true);
-  const [showImage_3, setShowImage_3] = useState(true);
-  const [showImage_4, setShowImage_4] = useState(true);
+  const [showImage_1, setShowImage_1] = useState(false);
+  const [showImage_2, setShowImage_2] = useState(false);
+  const [showImage_3, setShowImage_3] = useState(false);
+  const [showImage_4, setShowImage_4] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,6 +32,26 @@ const CrowRender = ({ crow_state }) => {
       document.documentElement.style.setProperty("--window_height", dimensions.height);
     }
   }, []);
+  useEffect(() => {
+    console.log(data_crow)
+    if(data_crow.geojson)
+      {console.log("true");
+        crow_state.pos1=true;
+        play();
+      }
+    else
+      { console.log("else");
+        crow_state.pos1=false;}
+        setShowImage_1(crow_state.pos1);
+  }, [data_crow]);
+  useEffect(() => {
+    console.log(crow_state.pos1);
+    setShowImage_1(crow_state.pos1);
+    if (showImage_1 == false) {
+      play();
+    }
+  }, [crow_state.pos1]);
+
   useEffect(() => {
     setShowImage_1(crow_state.pos1);
     if (showImage_1 == false) {
