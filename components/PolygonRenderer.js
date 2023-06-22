@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const PolygonRenderer = ({ geoJson, scale }) => {
+const PolygonRenderer = ({ data, scale }) => {
   const canvasRef = useRef(null);
 
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // デフォルト値を設定
@@ -10,7 +10,7 @@ const PolygonRenderer = ({ geoJson, scale }) => {
       // ブラウザ環境でのみ実行
       setDimensions({
         width: window.innerWidth * 0.45,
-        height: window.innerHeight * 0.8,
+        height: window.innerHeight * 0.7,
       });
     }
   }, []);
@@ -46,8 +46,8 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     ctx.stroke();
 
     // ポリゴンデータを描画する
-    if (geoJson) {
-      geoJson.features.forEach((feature) => {
+    if (data.geoJson) {
+      data.geoJson.features.forEach((feature) => {
         if (feature.geometry.type === "Polygon") {
           const coordinates = feature.geometry.coordinates;
           ctx.beginPath();
@@ -94,15 +94,20 @@ const PolygonRenderer = ({ geoJson, scale }) => {
       ctx.fillText(i.toString(), i * scale, dimensions.height - 5);
       ctx.fillText(i.toString(), 5, dimensions.height - i * scale - 15);
     }
-  }, [geoJson, scale]);
+  }, [data.geoJson, scale]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={dimensions.width}
-      height={dimensions.height}
-      style={{ position: "absolute", right: "0" }}
-    ></canvas>
+    <>
+      <canvas
+        ref={canvasRef}
+        width={dimensions.width}
+        height={dimensions.height}
+        style={{ position: "absolute", right: "0" }}
+      ></canvas>
+      <div>
+        {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
+      </div>
+    </>
   );
 };
 
