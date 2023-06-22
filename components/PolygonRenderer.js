@@ -31,24 +31,26 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     ctx.stroke();
 
     // ポリゴンデータを描画する
-    geoJson.features.forEach((feature) => {
-      if (feature.geometry.type === "Polygon") {
-        const coordinates = feature.geometry.coordinates[0]; // geoJSONのポリゴンは最初の配列に座標が入っています
-        ctx.beginPath();
-        coordinates.forEach((coordinate, index) => {
-          const [x, y] = coordinate.map((coord) => coord * scale); // scaleにより座標を調整
-          if (index === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-        });
-        ctx.closePath();
-        ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // 任意の色を指定
-        ctx.fill();
-        ctx.stroke();
-      }
-    });
+    if (geoJson) {
+      geoJson.features.forEach((feature) => {
+        if (feature.geometry.type === "Polygon") {
+          const coordinates = feature.geometry.coordinates; // geoJSONのポリゴンは最初の配列に座標が入っています
+          ctx.beginPath();
+          coordinates.forEach((coordinate, index) => {
+            const [x, y] = coordinate.map((coord) => coord * scale); // scaleにより座標を調整
+            if (index === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          });
+          ctx.closePath();
+          ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // 任意の色を指定
+          ctx.fill();
+          ctx.stroke();
+        }
+      });
+    }
 
     ctx.restore(); // contextの状態を復元（これにより次回の描画で変換が積み重なるのを防ぐ）
   }, [geoJson, scale]);
