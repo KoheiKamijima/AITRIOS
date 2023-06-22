@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 10000); // 5秒ごとにデータを取得
+    const intervalId = setInterval(fetchData, process.env.NEXT_PUBLIC_FETCH_INTERVAL);
 
     return () => {
       clearInterval(intervalId);
@@ -35,11 +35,11 @@ export default function Home() {
           type: "Polygon",
           coordinates: [
             [
-              [0, 0],
-              [0, 10],
-              [10, 10],
-              [10, 0],
-              [0, 0],
+              [2, 1],
+              [7, 6],
+              [5, 8],
+              [1, 2],
+              [2, 1],
             ],
           ],
         },
@@ -49,12 +49,15 @@ export default function Home() {
 
   return (
     <div>
-      <PolygonRenderer geoJson={geojson} scale={10} />
-      {data.map((item, i) => (
+      <PolygonRenderer geoJson={geojson} scale={50} />
+      <div>
+        {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
+      </div>
+      {/* {data.map((item, i) => (
         <div key={i}>
           {item.Date_time} Class: {item.Class} Coordinates: {item.X}, {item.Y}, {item.Z}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
