@@ -9,7 +9,7 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     if (typeof window !== "undefined") {
       // ブラウザ環境でのみ実行
       setDimensions({
-        width: window.innerWidth / 2,
+        width: window.innerWidth * 0.45,
         height: window.innerHeight * 0.8,
       });
     }
@@ -35,6 +35,9 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
 
+    // 色の混合方法を設定
+    ctx.globalCompositeOperation = "darken";
+
     ctx.beginPath();
     ctx.moveTo(axisMin * scale, 0);
     ctx.lineTo(axisMax * scale, 0);
@@ -57,7 +60,8 @@ const PolygonRenderer = ({ geoJson, scale }) => {
             }
           });
           ctx.closePath();
-          ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // 任意の色を指定
+          ctx.fillStyle = "rgba(0, 0, 255, 0.2)"; // 任意の色を指定
+
           ctx.fill();
           ctx.stroke();
         }
@@ -92,7 +96,14 @@ const PolygonRenderer = ({ geoJson, scale }) => {
     }
   }, [geoJson, scale]);
 
-  return <canvas ref={canvasRef} width={dimensions.width} height={dimensions.height}></canvas>;
+  return (
+    <canvas
+      ref={canvasRef}
+      width={dimensions.width}
+      height={dimensions.height}
+      style={{ position: "absolute", right: "0" }}
+    ></canvas>
+  );
 };
 
 export default PolygonRenderer;
