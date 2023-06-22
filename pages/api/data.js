@@ -8,13 +8,22 @@ const client = new CosmosClient({ endpoint, key });
 
 export default async function handler(req, res) {
   try {
-    const { resources: items } = await client
-      .database(databaseId)
-      .container(containerId)
-      .items.query("SELECT * from c")
-      .fetchAll();
+    const database = client.database(databaseId);
+    const container = database.container(containerId);
 
-    res.status(200).json(items);
+    const query = {
+      query: "SELECT * FROM c ORDER BY c.Date_time DESC",
+    };
+
+    const { resources: items } = await container.items.query(query).fetchAll();
+
+    console.log(items[0]);
+    // Return the latest data point
+    if (items.length > 0) {
+      res.status(200).json(items[0]);
+    } else {
+      res.status(404).send("No data found.");
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data from Cosmos DB" });
