@@ -62,58 +62,58 @@ const CrowRender = ({ crow_state }) => {
         <div className={styles.show_image_crow_1}>
           <Image
             src="/camera.svg"
-            width={200}
-            height={400}
+            width={100}
+            height={200}
           />
         </div> 
         <div className={ styles.show_image_crow_2 }>
           <Image
             src="/camera.svg"
-            width={200}
-            height={400}
+            width={100}
+            height={200}
           />
         </div>  
         <div className={ styles.show_image_crow_3} >
           <Image
             src="/camera.svg"
-            width={200}
-            height={400}
+            width={100}
+            height={200}
           />
         </div>  
         <div className={styles.show_image_crow_4 } >
           <Image
             src="/camera.svg"
-            width={200}
-            height={400}
+            width={100}
+            height={200}
           />
         </div>
         
         <div className={showImage_1 ? styles.show_image_crow_1 : styles.hide_image_crow}>
           <Image
             src="/crow.svg"
-            width={400}
-            height={800}
+            width={200}
+            height={400}
           />
         </div> 
         <div className={showImage_2 ? styles.show_image_crow_2 : styles.hide_image_crow}>
           <Image
             src="/crow.svg"
-            width={400}
-            height={800}
+            width={200}
+            height={400}
           />
         </div>  
         <div className={showImage_3 ? styles.show_image_crow_3 : styles.hide_image_crow} >
           <Image
             src="/crow.svg"
-            width={400}
-            height={800}
+            width={200}
+            height={400}
           />
         </div>  
         <div className={showImage_4 ? styles.show_image_crow_4 : styles.hide_image_crow} >
           <Image
             src="/crow.svg"
-            width={400}
-            height={800}
+            width={200}
+            height={400}
           />
         </div> 
  
