@@ -11,26 +11,19 @@ export default async function handler(req, res) {
     const database = client.database(databaseId);
     const container = database.container(containerId);
 
-    // Assume `timestamp` is the field that determines how recent a data point is.
     const query = {
-      query: "SELECT * FROM c ORDER BY c.timestamp DESC",
+      query: "SELECT * FROM c ORDER BY c.Date_time DESC",
     };
 
     const { resources: items } = await container.items.query(query).fetchAll();
 
+    console.log(items[0]);
     // Return the latest data point
     if (items.length > 0) {
       res.status(200).json(items[0]);
     } else {
       res.status(404).send("No data found.");
     }
-    // const { resources: items } = await client
-    //   .database(databaseId)
-    //   .container(containerId)
-    //   .items.query("SELECT * from c")
-    //   .fetchAll();
-
-    // res.status(200).json(items);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data from Cosmos DB" });
