@@ -35,11 +35,11 @@ export default function Home() {
           type: "Polygon",
           coordinates: [
             [
-              [0, 0],
-              [0, 10],
-              [10, 10],
-              [10, 0],
-              [0, 0],
+              [2, 1],
+              [7, 6],
+              [5, 8],
+              [1, 2],
+              [2, 1],
             ],
           ],
         },
