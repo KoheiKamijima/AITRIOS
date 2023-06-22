@@ -46,8 +46,8 @@ const PolygonRenderer = ({ data, scale }) => {
     ctx.stroke();
 
     // ポリゴンデータを描画する
-    if (data.geoJson) {
-      data.geoJson.features.forEach((feature) => {
+    if (data.geojson) {
+      data.geojson.features.forEach((feature) => {
         if (feature.geometry.type === "Polygon") {
           const coordinates = feature.geometry.coordinates;
           ctx.beginPath();
@@ -94,7 +94,7 @@ const PolygonRenderer = ({ data, scale }) => {
       ctx.fillText(i.toString(), i * scale, dimensions.height - 5);
       ctx.fillText(i.toString(), 5, dimensions.height - i * scale - 15);
     }
-  }, [data.geoJson, scale]);
+  }, [data.geojson, scale]);
 
   return (
     <>
@@ -102,7 +102,7 @@ const PolygonRenderer = ({ data, scale }) => {
         ref={canvasRef}
         width={dimensions.width}
         height={dimensions.height}
-        style={{ position: "absolute", right: "0" }}
+        style={{ position: "absolute", right: "0", backgroundColor: "white" }}
       ></canvas>
       <div>
         {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
