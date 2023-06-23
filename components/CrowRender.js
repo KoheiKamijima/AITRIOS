@@ -77,7 +77,7 @@ const CrowRender = ({ data_crow }) => {
     }
   }, []);
   useEffect(() => {
-    if (data_crow.geojson) {
+    if (data_crow?.geojson) {
       // console.log("true");
       crow_state.pos1 = true;
       play();
