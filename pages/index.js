@@ -30,7 +30,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 1000);
+    const intervalId = setInterval(fetchData, process.env.NEXT_PUBLIC_FETCH_INTERVAL);
 
     return () => {
       clearInterval(intervalId);
