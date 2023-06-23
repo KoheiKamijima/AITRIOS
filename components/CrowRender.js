@@ -3,87 +3,145 @@ import { useState, useEffect, useRef } from "react";
 import useSound from "use-sound";
 import React from "react";
 import styles from "@/styles/Home.module.css";
+import GoogleMapReact from 'google-map-react';
 
-const CrowRender = ({ crow_state }) => {
+
+
+const CrowRender = ({ data_crow}) => {
+  const defaultLatLng = {
+    lat: 35.631233089385965, 
+    lng: 139.74364425038752,
+  };
+  const defaultLatLng2 = {
+    lat: 35.62824534411401, 
+    lng: 139.74056489505813,
+  };
+  const defaultLatLng3 = {
+    lat: 35.62862918186511,
+    lng: 139.73873358197437 ,
+  };
+  const defaultLatLng4 = {
+    lat: 35.62773096503138, 
+    lng: 139.7366736455444,
+  };
+
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // デフォルト値を設定
-
+  const crow_state = {
+    pos1: false,
+    pos2: false,
+    pos3: false,
+    pos4: false,
+  };
   const canvasRef = useRef(null);
   const canvasHeight = 6000; // Canvasの高さを変数として定義しておきます
   const [play, { stop, pause }] = useSound("/warning.mp3");
-  const [data, setData] = useState([]);
-  const [showImage_1, setShowImage_1] = useState(true);
-  const [showImage_2, setShowImage_2] = useState(true);
-  const [showImage_3, setShowImage_3] = useState(true);
-  const [showImage_4, setShowImage_4] = useState(true);
+  const [showImage_1, setShowImage_1] = useState(false);
+  const [showImage_2, setShowImage_2] = useState(false);
+  const [showImage_3, setShowImage_3] = useState(false);
+  const [showImage_4, setShowImage_4] = useState(false);
+  const [map, setMap] = useState(null);
+  const [maps, setMaps] = useState(null);
 
+  const [marker1, setMarker1] = useState(null);
+  const [marker2, setMarker2] = useState(null);
+  const [marker3, setMarker3] = useState(null);
+  const [marker4, setMarker4] = useState(null);
+
+  
+  const handleApiLoaded = ({map,maps}) => {
+    setMap(map);
+    setMaps(maps);
+    new maps.Marker({
+      map,
+      position: defaultLatLng,
+      Icon:new google.maps.MarkerImage(
+        "/camera.png",
+    ),
+    });
+    new maps.Marker({
+      map,
+      position: defaultLatLng2,
+      Icon:new google.maps.MarkerImage(
+        "/camera.png",
+    ),
+    });
+    new maps.Marker({
+      map,
+      position: defaultLatLng3,
+      Icon:new google.maps.MarkerImage(
+        "/camera.png",
+    ),
+    });
+    new maps.Marker({
+      map,
+      position: defaultLatLng4,
+      Icon:new google.maps.MarkerImage(
+        "/camera.png",
+    ),
+    });
+    
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       // ブラウザ環境でのみ実行
       setDimensions({
-        width: window.innerWidth / 2,
-        height: window.innerHeight * 0.8,
+        width: window.innerWidth ,
+        height: window.innerHeight ,
       });
-      document.documentElement.style.setProperty("--window_width", dimensions.width);
-      document.documentElement.style.setProperty("--window_height", dimensions.height);
     }
   }, []);
   useEffect(() => {
+    if(data_crow.geojson)
+      {console.log("true");
+        crow_state.pos1=true;
+        play();
+      }
+    else
+      { console.log("else");
+        crow_state.pos1=false;
+      }
+      if(showImage_1!=crow_state.pos1)
+      {
+        if(maps){
+          if (marker1) {
+            marker1.setMap(null);
+          }
+          setMarker1(new maps.Marker({
+            map,
+            position: defaultLatLng,
+            Icon:new google.maps.MarkerImage(
+              "/crow.png",
+          ),
+            visible : crow_state.pos1
+          
+          }));
+        }
+      }
+      
+      setShowImage_1(crow_state.pos1);
+     
+  }, [data_crow]);
+
+  useEffect(() => {
     setShowImage_1(crow_state.pos1);
-    if (showImage_1 == false) {
-      play();
-    }
   }, [crow_state.pos1]);
-  useEffect(() => {
-    setShowImage_2(crow_state.pos2);
-    if (showImage_2 == false) {
-      play();
-    }
-  }, [crow_state.pos2]);
-  useEffect(() => {
-    setShowImage_3(crow_state.pos3);
-    if (showImage_3 == false) {
-      play();
-    }
-  }, [crow_state.pos3]);
-  useEffect(() => {
-    setShowImage_4(crow_state.pos4);
-    if (showImage_4 == false) {
-      play();
-    }
-  }, [crow_state.pos4]);
+
 
   return (
     <>
       <main>
-        <div className={styles.map}>
-          <Image src="/map.svg" width={dimensions.width} height={dimensions.height} alt="map" />
+      <div style={{ height: dimensions.height, width:dimensions.width }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY }}
+        defaultCenter={defaultLatLng}
+        defaultZoom={16}
+        onGoogleApiLoaded={handleApiLoaded}>
+          
+        </GoogleMapReact>
+    
         </div>
 
-        <div className={styles.show_image_crow_1}>
-          <Image src="/camera.svg" width={100} height={200} alt="camera" />
-        </div>
-        <div className={styles.show_image_crow_2}>
-          <Image src="/camera.svg" width={100} height={200} alt="camera" />
-        </div>
-        <div className={styles.show_image_crow_3}>
-          <Image src="/camera.svg" width={100} height={200} alt="camera" />
-        </div>
-        <div className={styles.show_image_crow_4}>
-          <Image src="/camera.svg" width={100} height={200} alt="camera" />
-        </div>
-
-        <div className={showImage_1 ? styles.show_image_crow_1 : styles.hide_image_crow}>
-          <Image src="/crow.svg" width={200} height={400} alt="crow" />
-        </div>
-        <div className={showImage_2 ? styles.show_image_crow_2 : styles.hide_image_crow}>
-          <Image src="/crow.svg" width={200} height={400} alt="crow" />
-        </div>
-        <div className={showImage_3 ? styles.show_image_crow_3 : styles.hide_image_crow}>
-          <Image src="/crow.svg" width={200} height={400} alt="crow" />
-        </div>
-        <div className={showImage_4 ? styles.show_image_crow_4 : styles.hide_image_crow}>
-          <Image src="/crow.svg" width={200} height={400} alt="crow" />
-        </div>
+  
       </main>
     </>
   );
