@@ -9,8 +9,8 @@ const PolygonRenderer = ({ data, scale }) => {
     if (typeof window !== "undefined") {
       // ブラウザ環境でのみ実行
       setDimensions({
-        width: window.innerWidth * 0.45,
-        height: window.innerHeight * 0.7,
+        width: window.innerWidth * 0.3,
+        height: window.innerHeight * 0.4,
       });
     }
   }, []);
@@ -98,6 +98,7 @@ const PolygonRenderer = ({ data, scale }) => {
 
   return (
     <>
+
       <canvas
         ref={canvasRef}
         width={dimensions.width}
