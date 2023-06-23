@@ -113,7 +113,7 @@ const CrowRender = ({ data_crow }) => {
   return (
     <>
       <main>
-        <div style={{ height: dimensions.height, width: dimensions.width }}>
+        <div style={{ height: dimensions.height * 0.95, width: dimensions.width }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY }}
             defaultCenter={defaultLatLng}
