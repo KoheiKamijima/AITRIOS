@@ -7,10 +7,30 @@
   min-height: 100vh;
 }
 
+.nav{
+  background-color: #666;
+}
+
+.nav ul {
+  padding: 10px 20px 10px 0px;
+  width: 90%;
+  display: flex;
+  list-style: none;
+  margin: 0 auto;
+  height: 50px;
+  font-size: large;
+}
+
 .map{
   position: absolute;
   top: 20%;
   left: 2%;
+}
+
+.map2{
+  position: absolute;
+  top: 25%;
+  left: 80%;
 }
 
 .show_image_crow_1{
@@ -47,7 +67,8 @@
   justify-content: inherit;
   align-items: center;
   text-align:  center; 
-  font-size: 6rem;
+  font-size: 3rem;
+  color: rgb(0,0,0);
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
