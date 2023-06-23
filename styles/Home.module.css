@@ -33,7 +33,41 @@
   left: 100%;
 }
 
+.map2_hide{
+  display: none;
+  position: absolute;
+  top: 20%;
+  left: 100%;
+}
+
+.circle{
+  position: absolute;
+  align-items: center;
+  top: 32%;
+  left: 42%;
+}
+
+.circle_hide{
+  align-items: center;
+  display: none;
+  position: absolute;
+  top: 35%;
+  left: 45%;
+}
+
 .map2_description{
+  position: absolute;
+  align-items: center;
+  text-align:  center; 
+  top: 10%;
+  left: 78%;
+  font-size: 3.5rem;
+  color: rgb(0,0,0);
+  background-color: #41b73d;
+}
+
+.map2_description_hide{
+  display: none;
   position: absolute;
   align-items: center;
   text-align:  center; 
@@ -51,7 +85,26 @@
   left: 73%;
 }
 
+.map3_hide{
+  display: none;
+  position: absolute;
+  background-color: #f5eded;
+  top: 70%;
+  left: 73%;
+}
 .map3_description{
+  position: absolute;
+  align-items: center;
+  text-align:  center; 
+  top: 62%;
+  left: 83%;
+  font-size: 3rem;
+  color: rgb(0,0,0);
+  background-color: #666;
+}
+
+.map3_description_hide{
+  display: none;
   position: absolute;
   align-items: center;
   text-align:  center; 

@@ -25,6 +25,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export default function Home() {
   const [play, { stop, pause }] = useSound("/warning.mp3");
   const [dataArr, setData] = useState([]);
+  const [Button, setButton] = useState(false);
   const fetchData = async () => {
     const res = await fetch(`/api/data`);
     const newData = await res.json();
@@ -41,8 +42,9 @@ export default function Home() {
     };
   }, []);
 
-
   const onSubmit = async () => {
+    setButton(true);
+   
 
   }
 
@@ -67,8 +69,8 @@ export default function Home() {
         </ul>
       </nav>
 
-      <CrowRender data_crow={dataArr[0]} />
-      <div className={styles.map2}>
+      <CrowRender data_crow={dataArr[0]} button_state={Button} />
+      <div className={Button ? styles.map2 : styles.map2_hide}>
         {dataArr.map((data, index) => {
           let alpha;
 
@@ -85,16 +87,24 @@ export default function Home() {
         })}
       </div>
 
-      <div className={styles.map3}>
+      <div className={Button ? styles.map3 : styles.map3_hide}>
       <ChartRender data_crow={dataArr[0]} />
       </div>
-      <div className={styles.map2_description}>
+      <div className={Button ? styles.circle : styles.circle_hide}>
+      <Image
+            src="/circle.svg"
+            width={300}
+            height={300}
+          />
+      </div>
+      <div className={Button ? styles.map2_description : styles.map2_description_hide}>
           <p>現場の様子</p>
       </div>
-      <div className={styles.map3_description}>
+      <div className={Button ? styles.map3_description : styles.map3_description_hide}>
           <p>履歴</p>
+        
       </div>
-      <div className={styles.button}>
+          <div className={styles.button}>
         <p>
         <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点１取得</button>
         </p>
@@ -108,6 +118,7 @@ export default function Home() {
         <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点４取得</button>
         </p>
       </div>
+      
 
     </>
   );

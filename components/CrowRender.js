@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import useSound from "use-sound";
 import React from "react";
 import GoogleMapReact from "google-map-react";
+import styles from "@/styles/Home.module.css";
 
-const CrowRender = ({ data_crow }) => {
+const CrowRender = ({ data_crow,button_state }) => {
   const defaultLatLng = {
     lat: 35.631233089385965,
     lng: 139.74364425038752,
@@ -108,17 +109,26 @@ const CrowRender = ({ data_crow }) => {
     setShowImage_1(crow_state.pos1);
   }, [crow_state.pos1]);
 
+  useEffect(() => {
+    if(button_state==true){    
+      map.panTo(new google.maps.LatLng(defaultLatLng));
+    }
+  }, [button_state]);
+
+
+  
   return (
     <>
       <main>
         <div style={{ height: dimensions.height * 0.95, width: dimensions.width }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY }}
-            defaultCenter={defaultLatLng}
-            defaultZoom={16}
+            defaultCenter={defaultLatLng3}
+            defaultZoom={17}
             onGoogleApiLoaded={handleApiLoaded}
           ></GoogleMapReact>
         </div>
+        
       </main>
     </>
   );
