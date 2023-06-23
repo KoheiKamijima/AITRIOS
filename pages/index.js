@@ -28,10 +28,9 @@ export default function Home() {
     setData(newData);
   };
 
-  console.log("Fetch Interval: " + process.env.NEXT_PUBLIC_FETCH_INTERVAL + "ms");
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, process.env.NEXT_PUBLIC_FETCH_INTERVAL);
+    const intervalId = setInterval(fetchData, 1000);
 
     return () => {
       clearInterval(intervalId);
