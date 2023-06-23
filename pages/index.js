@@ -19,8 +19,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import InferenceRender from "@/components/InferenceRender";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
 
 export default function Home() {
   const [play, { stop, pause }] = useSound("/warning.mp3");
@@ -41,11 +41,7 @@ export default function Home() {
     };
   }, []);
 
-
-  const onSubmit = async () => {
-
-  }
-
+  const onSubmit = async () => {};
 
   // 最新のDeviceIDを追跡する
   let encounteredDeviceIDs = [];
@@ -84,31 +80,41 @@ export default function Home() {
           return <PolygonRenderer data={data} scale={50} alpha={alpha} index={index} key={index} />;
         })}
       </div>
+      <div className={styles.inference}>
+        <InferenceRender data={dataArr[0]} />
+      </div>
 
       <div className={styles.map3}>
-      <ChartRender data_crow={dataArr[0]} />
+        <ChartRender data_crow={dataArr[0]} />
       </div>
       <div className={styles.map2_description}>
-          <p>現場の様子</p>
+        <p>現場の様子</p>
       </div>
       <div className={styles.map3_description}>
-          <p>履歴</p>
+        <p>履歴</p>
       </div>
       <div className={styles.button}>
         <p>
-        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点１取得</button>
+          <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }}>
+            地点１取得
+          </button>
         </p>
         <p>
-        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点２取得</button>
+          <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }}>
+            地点２取得
+          </button>
         </p>
         <p>
-        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点３取得</button>
+          <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }}>
+            地点３取得
+          </button>
         </p>
         <p>
-        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点４取得</button>
+          <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }}>
+            地点４取得
+          </button>
         </p>
       </div>
-
     </>
   );
 }
