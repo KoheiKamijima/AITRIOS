@@ -1,11 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import PolygonRenderer from "@/components/PolygonRenderer";
+import ChartRender from "@/components/ChartRender";
 import CrowRender from "@/components/CrowRender";
 import { useState, useEffect, useRef } from "react";
 import useSound from "use-sound";
 import React from "react";
 import styles from "@/styles/Home.module.css";
+
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -18,6 +20,7 @@ import {
   Legend,
 } from "chart.js";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
 
 export default function Home() {
   const [play, { stop, pause }] = useSound("/warning.mp3");
@@ -38,57 +41,11 @@ export default function Home() {
     };
   }, []);
 
-  var chartColors = {
-    red: "rgb(255, 99, 132)",
-    orange: "rgb(255, 159, 64)",
-    yellow: "rgb(255, 205, 86)",
-    green: "rgb(75, 192, 192)",
-    blue: "rgb(54, 162, 235)",
-    purple: "rgb(153, 102, 255)",
-    grey: "rgb(201, 203, 207)",
-  };
 
-  const c_data = {
-    labels: [],
-    datasets: [
-      {
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        borderColor: "rgba(35,200,153,1)",
-        data: [100, 120, 50, 110],
-        lineTension: 0,
-      },
-    ],
-  };
+  const onSubmit = async () => {
 
-  const options = {
-    legend: {
-      display: false,
-    },
-    scales: {
-      xAxes: [
-        {
-          type: "realtime",
-          realtime: {
-            delay: 2000,
-            onRefsh: function (chart) {
-              chart.data.datasets.forEach(function (data) {
-                dataset.data.push({
-                  x: Date.now(),
-                  y: Math.random(),
-                });
-              });
-            },
-          },
-        },
-      ],
-    },
-  };
+  }
 
-  useEffect(() => {
-    if (c_data) {
-      c_data.datasets.push(1);
-    }
-  }, [dataArr]);
 
   // 最新のDeviceIDを追跡する
   let encounteredDeviceIDs = [];
@@ -127,20 +84,31 @@ export default function Home() {
           return <PolygonRenderer data={data} scale={50} alpha={alpha} index={index} key={index} />;
         })}
       </div>
-      {/* <div className={styles.map2}>
-        {dataArr.map((data, index) => (
-          <PolygonRenderer
-            data={data}
-            scale={50}
-            alpha={index == 0 ? 0.3 : index == 1 ? 0.1 : 0.01}
-            index={index}
-            key={index}
-          />
-        ))}
-      </div> */}
-      <div>
-        <Line data={c_data} />
+
+      <div className={styles.map3}>
+      <ChartRender data_crow={dataArr[0]} />
       </div>
+      <div className={styles.map2_description}>
+          <p>現場の様子</p>
+      </div>
+      <div className={styles.map3_description}>
+          <p>履歴</p>
+      </div>
+      <div className={styles.button}>
+        <p>
+        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点１取得</button>
+        </p>
+        <p>
+        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点２取得</button>
+        </p>
+        <p>
+        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点３取得</button>
+        </p>
+        <p>
+        <button type="submit" onClick={onSubmit} style={{ height: "50px", width: "200px" }} >地点４取得</button>
+        </p>
+      </div>
+
     </>
   );
 }
