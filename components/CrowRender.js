@@ -1,27 +1,23 @@
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import useSound from "use-sound";
 import React from "react";
-import styles from "@/styles/Home.module.css";
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact from "google-map-react";
 
-
-
-const CrowRender = ({ data_crow}) => {
+const CrowRender = ({ data_crow }) => {
   const defaultLatLng = {
-    lat: 35.631233089385965, 
+    lat: 35.631233089385965,
     lng: 139.74364425038752,
   };
   const defaultLatLng2 = {
-    lat: 35.62824534411401, 
+    lat: 35.62824534411401,
     lng: 139.74056489505813,
   };
   const defaultLatLng3 = {
     lat: 35.62862918186511,
-    lng: 139.73873358197437 ,
+    lng: 139.73873358197437,
   };
   const defaultLatLng4 = {
-    lat: 35.62773096503138, 
+    lat: 35.62773096503138,
     lng: 139.7366736455444,
   };
 
@@ -47,101 +43,82 @@ const CrowRender = ({ data_crow}) => {
   const [marker3, setMarker3] = useState(null);
   const [marker4, setMarker4] = useState(null);
 
-  
-  const handleApiLoaded = ({map,maps}) => {
+  const handleApiLoaded = ({ map, maps }) => {
     setMap(map);
     setMaps(maps);
     new maps.Marker({
       map,
       position: defaultLatLng,
-      Icon:new google.maps.MarkerImage(
-        "/camera.png",
-    ),
+      icon: new google.maps.MarkerImage("/camera.png"),
     });
     new maps.Marker({
       map,
       position: defaultLatLng2,
-      Icon:new google.maps.MarkerImage(
-        "/camera.png",
-    ),
+      icon: new google.maps.MarkerImage("/camera.png"),
     });
     new maps.Marker({
       map,
       position: defaultLatLng3,
-      Icon:new google.maps.MarkerImage(
-        "/camera.png",
-    ),
+      icon: new google.maps.MarkerImage("/camera.png"),
     });
     new maps.Marker({
       map,
       position: defaultLatLng4,
-      Icon:new google.maps.MarkerImage(
-        "/camera.png",
-    ),
+      icon: new google.maps.MarkerImage("/camera.png"),
     });
-    
   };
   useEffect(() => {
     if (typeof window !== "undefined") {
       // ブラウザ環境でのみ実行
       setDimensions({
-        width: window.innerWidth ,
-        height: window.innerHeight ,
+        width: window.innerWidth,
+        height: window.innerHeight,
       });
     }
   }, []);
   useEffect(() => {
-    if(data_crow.geojson)
-      {console.log("true");
-        crow_state.pos1=true;
-        play();
-      }
-    else
-      { console.log("else");
-        crow_state.pos1=false;
-      }
-      if(showImage_1!=crow_state.pos1)
-      {
-        if(maps){
-          if (marker1) {
-            marker1.setMap(null);
-          }
-          setMarker1(new maps.Marker({
+    if (data_crow?.geojson) {
+      // console.log("true");
+      crow_state.pos1 = true;
+      play();
+    } else {
+      // console.log("else");
+      crow_state.pos1 = false;
+    }
+    if (showImage_1 != crow_state.pos1) {
+      if (maps) {
+        if (marker1) {
+          marker1.setMap(null);
+        }
+        setMarker1(
+          new maps.Marker({
             map,
             position: defaultLatLng,
-            Icon:new google.maps.MarkerImage(
-              "/crow.png",
-          ),
-            visible : crow_state.pos1
-          
-          }));
-        }
+            Icon: new google.maps.MarkerImage("/crow.png"),
+            visible: crow_state.pos1,
+          })
+        );
       }
-      
-      setShowImage_1(crow_state.pos1);
-     
+    }
+
+    setShowImage_1(crow_state.pos1);
   }, [data_crow]);
 
   useEffect(() => {
     setShowImage_1(crow_state.pos1);
   }, [crow_state.pos1]);
 
-
   return (
     <>
       <main>
-      <div style={{ height: dimensions.height, width:dimensions.width }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY }}
-        defaultCenter={defaultLatLng}
-        defaultZoom={16}
-        onGoogleApiLoaded={handleApiLoaded}>
-          
-        </GoogleMapReact>
-    
+        <div style={{ height: dimensions.height * 0.95, width: dimensions.width }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY }}
+            defaultCenter={defaultLatLng}
+            defaultZoom={16}
+            onGoogleApiLoaded={handleApiLoaded}
+          ></GoogleMapReact>
         </div>
-
-  
       </main>
     </>
   );

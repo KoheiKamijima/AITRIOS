@@ -75,7 +75,7 @@ const ChartRender = ({data_crow}) => {
   }, []);
   
   useEffect(() => {
-        if(data_crow.geojson){
+        if(data_crow?.geojson){
           data_c.shift();
           data_c.push(1);
         }

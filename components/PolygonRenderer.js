@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const PolygonRenderer = ({ data, scale }) => {
+const PolygonRenderer = ({ data, scale, alpha, index }) => {
   const canvasRef = useRef(null);
 
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 }); // デフォルト値を設定
@@ -60,7 +60,9 @@ const PolygonRenderer = ({ data, scale }) => {
             }
           });
           ctx.closePath();
-          ctx.fillStyle = "rgba(0, 0, 255, 0.2)"; // 任意の色を指定
+          // ctx.fillStyle = "rgba(0, 0, 255, 0.2)"; // 任意の色を指定
+          ctx.fillStyle = `rgba(0, 0, 255, ${alpha})`;
+          ctx.strokeStyle = `rgba(0, 0, 0, ${alpha})`;
 
           ctx.fill();
           ctx.stroke();
@@ -96,6 +98,8 @@ const PolygonRenderer = ({ data, scale }) => {
     }
   }, [data.geojson, scale]);
 
+  let backgroundColor = index == 0 ? "white" : "transparent";
+
   return (
     <>
 
@@ -103,11 +107,13 @@ const PolygonRenderer = ({ data, scale }) => {
         ref={canvasRef}
         width={dimensions.width}
         height={dimensions.height}
-        style={{ position: "absolute", right: "0", backgroundColor: "white" }}
+        style={{ position: "absolute", right: "0", backgroundColor: backgroundColor }}
       ></canvas>
-      <div>
-        {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
-      </div>
+      {/* {index == 0 && (
+        <div>
+          {data.Date_time} Class: {data.Class} Coordinates: {data.X}, {data.Y}, {data.Z}
+        </div>
+      )} */}
     </>
   );
 };
