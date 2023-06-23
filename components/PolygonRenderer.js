@@ -43,6 +43,11 @@ const PolygonRenderer = ({ data, scale, alpha, index }) => {
     ctx.lineTo(axisMax * scale, 0);
     ctx.moveTo(0, axisMin * scale);
     ctx.lineTo(0, axisMax * scale);
+    // ctx.moveTo(axisMin * scale, -axisMin * scale);
+    // ctx.lineTo(axisMax * scale, -axisMin * scale);
+    // ctx.moveTo(-axisMin * scale, axisMin * scale);
+    // ctx.lineTo(-axisMin * scale, axisMax * scale);
+
     ctx.stroke();
 
     // ポリゴンデータを描画する
@@ -102,7 +107,6 @@ const PolygonRenderer = ({ data, scale, alpha, index }) => {
 
   return (
     <>
-
       <canvas
         ref={canvasRef}
         width={dimensions.width}
