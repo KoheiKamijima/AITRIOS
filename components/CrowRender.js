@@ -109,6 +109,7 @@ const CrowRender = ({ data_crow }) => {
   }, [crow_state.pos1]);
 
   console.log(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY);
+  console.log(process.env.NEXT_PUBLIC_FETCH_INTERVAL);
 
   return (
     <>
